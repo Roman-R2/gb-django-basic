@@ -7,6 +7,7 @@
 
 ### VENV ###
 venv
+venv_ubuntu
 
 ### Python ###
 __pycache__/
