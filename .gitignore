@@ -3,7 +3,6 @@
 
 ### ENV ###
 .env
-.env.dev
 
 ### VENV ###
 venv
@@ -15,8 +14,6 @@ __pycache__/
 ### Django ###
 *.pyc
 *.sqlite3
-/app/static
-/app/products_list/migrations
 /media
 
 ### Other ###
