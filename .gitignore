@@ -12,6 +12,7 @@ venv_ubuntu
 __pycache__/
 
 ### Django ###
+/app/products_list/migrations
 *.pyc
 *.sqlite3
 /media
