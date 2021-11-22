@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-# My apps
+    # My apps
     'mainapp',
 
     # Third party apps

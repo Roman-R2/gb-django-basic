@@ -1,3 +1,6 @@
+import json
+from urllib.request import urlopen
+
 from django.shortcuts import render
 
 
@@ -11,4 +14,12 @@ def products(request):
 
 
 def contact(request):
-    return render(request, 'mainapp/contact.html')
+    url = 'https://jsonplaceholder.typicode.com/users'
+    json_response = urlopen(url)
+    fake_json = json.loads(json_response.read())
+
+    context = {
+        "contacts": fake_json[:3],
+    }
+
+    return render(request, 'mainapp/contact.html', context=context)
