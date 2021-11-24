@@ -3,14 +3,25 @@ from urllib.request import urlopen
 
 from django.shortcuts import render
 
+from .models import Category, Product
 
-# Create your views here.
+
 def index(request):
-    return render(request, 'mainapp/index.html')
+    products = Product.objects.all()[:4]
+    context = {
+        "products": products,
+    }
+    return render(request, 'mainapp/index.html', context=context)
 
 
-def products(request):
-    return render(request, 'mainapp/products.html')
+def products(request, slug=None):
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    print('--------> ', categories)
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'mainapp/products.html', context=context)
 
 
 def contact(request):
