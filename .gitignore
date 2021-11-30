@@ -13,7 +13,6 @@ __pycache__/
 
 ### Django ###
 *.pyc
-*.sqlite3
 /media
 
 ### Other ###
