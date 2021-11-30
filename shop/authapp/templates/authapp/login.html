@@ -8,6 +8,7 @@
         {{ login_form.as_p }}
         <br>
         <input class="form-control" type="submit" value="войти">
+        <a class="form-control btn btn-info" href="{% url 'authapp:register' %}">Регистрация</a>
     </form>
 
 {% endblock %}
