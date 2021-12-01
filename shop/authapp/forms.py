@@ -1,5 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
-from django.forms import forms, HiddenInput
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import ShopUser
 
@@ -13,6 +12,7 @@ class ShopUserLoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+<<<<<<< HEAD
 
 
 class ShopUserRegisterForm(UserCreationForm):
@@ -73,3 +73,5 @@ class ShopUserEditForm(UserChangeForm):
         if data_age < 18:
             raise forms.ValidationError('Вам мало лет')
         return data_age
+=======
+>>>>>>> parent of b223c26 (complite)
