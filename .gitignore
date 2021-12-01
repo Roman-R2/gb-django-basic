@@ -13,7 +13,7 @@ __pycache__/
 
 ### Django ###
 *.pyc
-/media
+/shop/media
 
 ### Other ###
 help.txt
