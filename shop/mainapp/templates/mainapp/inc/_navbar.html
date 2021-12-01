@@ -4,9 +4,6 @@
         <li><a href="{% url 'mainapp:index' %}" class="active">домой</a></li>
         <li><a href="{% url 'mainapp:products' %}">продукты</a></li>
         <li><a href="{% url 'mainapp:contact' %}">контакты</a></li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
         <li>
             {% if user.is_authenticated %}
                 <a href="{% url 'authapp:logout' %}">выйти</a>
@@ -14,8 +11,6 @@
                 <a href="{% url 'authapp:login' %}">войти</a>
             {% endif %}
         </li>
->>>>>>> parent of b223c26 (complite)
-=======
         <li>|</li>
         <li>
             {% if user.is_authenticated %}
@@ -31,7 +26,6 @@
                 <li><a href="{% url 'authapp:login' %}">войти</a></li>
             {% endif %}
         </li>
->>>>>>> parent of bf133bd (Revert "04 django homework")
     </ul>
     <a href="#" class="search"></a>
 </div>

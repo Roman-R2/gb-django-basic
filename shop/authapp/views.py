@@ -3,11 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-<<<<<<< HEAD
-from .forms import ShopUserLoginForm
-=======
 from .forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
->>>>>>> parent of bf133bd (Revert "04 django homework")
 
 
 def login(request):
@@ -32,8 +28,6 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('mainapp:index'))
-<<<<<<< HEAD
-=======
 
 
 def edit(request):
@@ -64,4 +58,3 @@ def register(request):
     }
 
     return render(request, 'authapp/register.html', context=context)
->>>>>>> parent of bf133bd (Revert "04 django homework")
