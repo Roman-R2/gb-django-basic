@@ -25,7 +25,7 @@ class ShopUserRegisterForm(UserCreationForm):
             'age',
             'avatar',
             'password1',
-            'password2',
+            'password2'
         )
 
     def __init__(self, *args, **kwargs):
