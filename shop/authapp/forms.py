@@ -36,7 +36,7 @@ class ShopUserRegisterForm(UserCreationForm):
     def clean_age(self):
         data_age = self.cleaned_data['age']
         if data_age < 18:
-            raise forms.ValidationError('Вам мало лет')
+            raise forms.ValidationError('Вам мало лет.')
         return data_age
 
     # def clean_email(self):
