@@ -16,6 +16,8 @@ def index(request):
 
 def products(request, slug=None):
     categories = Category.objects.all()
+    products = Product.objects.all()
+    print('--------> ', categories)
     context = {
         'categories': categories,
     }
