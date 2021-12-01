@@ -3,7 +3,7 @@ from urllib.request import urlopen
 
 from django.shortcuts import render
 
-from .models import Category, Product
+from mainapp.models import Category, Product
 
 
 def index(request):

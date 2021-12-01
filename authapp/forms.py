@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django.forms import forms, HiddenInput
 
-from .models import ShopUser
+from authapp.models import ShopUser
 
 
 class ShopUserLoginForm(AuthenticationForm):
@@ -34,7 +34,7 @@ class ShopUserRegisterForm(UserCreationForm):
             field.widget.attrs['class'] = 'form-control'
 
     def clean_age(self):
-        data_age = self.changed_data['age']
+        data_age = self.cleaned_data['age']
         if data_age < 18:
             raise forms.ValidationError('Вам мало лет.')
         return data_age
@@ -69,7 +69,7 @@ class ShopUserEditForm(UserChangeForm):
     #     return data_email
 
     def clean_age(self):
-        data_age = self.changed_data['age']
+        data_age = self.cleaned_data['age']
         if data_age < 18:
             raise forms.ValidationError('Вам мало лет')
         return data_age
