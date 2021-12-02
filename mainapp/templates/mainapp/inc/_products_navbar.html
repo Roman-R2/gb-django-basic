@@ -2,7 +2,7 @@
     <ul class="links-menu" id="navbarProducts">
         <li><a href="{% url 'mainapp:products' %}">все</a>
         </li>
-        {% for category in categories %}
+        {% for category in links_menu %}
             <li><a href="{% url 'mainapp:categorys' category.slug %}">{{ category.name }}</a></li>
         {% endfor %}
     </ul>

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My apps
     'authapp',
+    'basketapp',
     'mainapp',
 
     # Third party apps

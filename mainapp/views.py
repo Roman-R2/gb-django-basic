@@ -1,7 +1,8 @@
 import json
 from urllib.request import urlopen
 
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 
 from mainapp.models import Category, Product
 
@@ -16,8 +17,18 @@ def index(request):
 
 def products(request, slug=None):
     categories = Category.objects.all()
+
+    if slug is None:
+        products_list = Product.objects.all()
+        this_category = {"name": "Все"}
+    else:
+        this_category = get_object_or_404(Category, slug=slug)
+        products_list = Product.objects.filter(category__slug=slug)
+
     context = {
-        'categories': categories,
+        'links_menu': categories,
+        'products_list': products_list,
+        'this_category': this_category,
     }
     return render(request, 'mainapp/products.html', context=context)
 
