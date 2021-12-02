@@ -4,6 +4,7 @@ from urllib.request import urlopen
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
+from basketapp.models import Basket
 from mainapp.models import Category, Product
 
 
@@ -31,6 +32,9 @@ def products(request, slug=None):
         'this_category': this_category,
         # 'hot_product': Product.objects.all().first(),
         'same_products': Product.objects.all()[:3],
+        'basket': sum(list(Basket.objects.filter(
+            user=request.user
+        ).values_list('quantity', flat=True)))
     }
     return render(request, 'mainapp/products.html', context=context)
 

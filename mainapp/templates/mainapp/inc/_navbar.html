@@ -20,7 +20,10 @@
             {% endif %}
         </li>
         <li>|</li>
+
     </ul>
-    <a href="#" class="basket"></a>
+    <a href="{% url 'basketapp:basket' %}" class="basket" style="padding-left: 25px;">
+        <span class="my_badge">{% if basket %} {{ basket }}{% else %}0{% endif %}</span>
+    </a>
     <a href="#" class="search"></a>
 </div>
