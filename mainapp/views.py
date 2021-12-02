@@ -29,6 +29,8 @@ def products(request, slug=None):
         'links_menu': categories,
         'products_list': products_list,
         'this_category': this_category,
+        # 'hot_product': Product.objects.all().first(),
+        'same_products': Product.objects.all()[:3],
     }
     return render(request, 'mainapp/products.html', context=context)
 
