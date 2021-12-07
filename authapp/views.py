@@ -3,11 +3,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, \
+    ShopUserEditForm
+from authapp.services import check_next_in_request
 
 
 def login(request):
     login_form = ShopUserLoginForm(data=request.POST)
+    next_url = request.GET.get('next', '')
 
     if request.method == 'POST' and login_form.is_valid():
         username = request.POST.get('username')
@@ -16,10 +19,14 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
             auth.login(request, user)
+
+            if check_next_in_request(request):
+                return HttpResponseRedirect(request.POST['next'])
             return HttpResponseRedirect(reverse('mainapp:index'))
 
     context = {
         'login_form': login_form,
+        'next': next_url,
     }
 
     return render(request, 'authapp/login.html', context=context)
@@ -32,7 +39,8 @@ def logout(request):
 
 def edit(request):
     if request.method == 'POST':
-        edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
+        edit_form = ShopUserEditForm(request.POST, request.FILES,
+                                     instance=request.user)
         if edit_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse('mainapp:index'))
