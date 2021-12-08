@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from mainapp.models import Product, Category
+from mainapp.models import Category, Product
 
 
 class Command(BaseCommand):

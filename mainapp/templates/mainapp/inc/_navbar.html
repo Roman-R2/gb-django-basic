@@ -22,8 +22,17 @@
         <li>|</li>
 
     </ul>
-    <a href="{% url 'basketapp:basket' %}" class="basket" style="padding-left: 25px;">
+    <a href="{% url 'basketapp:basket' %}" class="basket">
+        {% comment %}
         <span class="my_badge">{% if basket %} {{ basket }}{% else %}0{% endif %}</span>
+    {% endcomment %}
+        <span class="my_badge" style="margin-left: 25px;">
+        {% if basket %}
+
+            {{ basket.0.total_cost|floatformat:0 }} руб.<br>
+            ({{ basket.0.total_quantity }} шт.)
+        {% endif %}
+        </span>
     </a>
     <a href="#" class="search"></a>
 </div>
