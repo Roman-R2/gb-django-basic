@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     # My apps
     'authapp',
     'basketapp',
-    'mainapp',
+    'mainapp.apps.MainappConfig',
 
     # Third party apps
 
