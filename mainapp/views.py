@@ -3,7 +3,6 @@ from urllib.request import urlopen
 
 from django.shortcuts import get_object_or_404, render
 
-from basketapp.models import Basket
 from mainapp.models import Category, Product
 from mainapp.services import get_basket, get_hot_product, get_same_products, \
     get_links_menu
