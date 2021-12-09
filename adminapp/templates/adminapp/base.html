@@ -11,8 +11,6 @@
     {% block css %}
         <link rel="stylesheet" type="text/css"
               href="{% static 'mainapp/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" type="text/css"
-              href="{% static 'mainapp/css/style.css' %}">
         <link rel="stylesheet"
               href="{% static 'mainapp/fonts/font-awesome/css/font-awesome.css' %}">
     {% endblock %}
@@ -22,14 +20,8 @@
 </head>
 <body>
 <div class="container">
-    <h2>Административная панель</h2>
-    <ul class="nav nav-tabs">
 
-        <li role="presentation" class="active"><a href="{% url 'adminapp:users' %}">Пользователи</a></li>
-        <li role="presentation"><a href="{% url 'adminapp:categories' %}">Категории</a></li>
-        <li role="presentation" class="pull-right">
-            <a href="{% url 'mainapp:index' %}" class="btn btn-info">На сайт</a></li>
-    </ul>
+    {% include 'adminapp/inc/_admin_panel_navbar.html' %}
 
     {% block content %}
 

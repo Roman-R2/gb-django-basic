@@ -1,0 +1,39 @@
+{% extends 'adminapp/base.html' %}
+
+{% block content %}
+    {% for item in object_list %}
+        <diw class="row">
+            <div class="col-lg-3">
+                <img class="media-object" src="/media/{{ item.image }}" height="120">
+            </div>
+            <div class="col-lg-3">
+                <p><h4>{{ item.name }}</h4></p>
+                <p>{{ item.short_desc }}</p>
+                <p>
+                    <a href="{% url 'adminapp:product_read' item.pk %}" style="margin-bottom: 10px;" class="btn
+                        btn-info">
+                        <i class="fa fa-eye" aria-hidden="true"></i> Посмотреть продукт
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-3">
+                <div class="bs-example pull-left" data-example-id="vertical-button-group">
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <a href="{% url 'adminapp:product_update' item.pk %}" style="margin-bottom: 10px;" class="btn
+                        btn-info">
+                            Редактировать
+                        </a>
+                        <a href="{% url 'adminapp:product_delete' item.pk %}" style="margin-bottom: 10px;"
+                           class="btn btn-danger">Удалить</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <p>Цена: {{ item.price }} руб.</p>
+                <p>Колличество: {{ item.quantity }} шт.</p>
+            </div>
+        </diw>
+        <hr>
+    {% endfor %}
+{% endblock %}

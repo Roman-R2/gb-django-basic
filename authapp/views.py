@@ -58,7 +58,7 @@ def register(request):
         register_form = ShopUserRegisterForm(request.POST, request.FILES)
         if register_form.is_valid():
             register_form.save()
-            return HttpResponseRedirect(reverse('authapp:login'))
+            return HttpResponseRedirect(reverse('authapp:index'))
     else:
         register_form = ShopUserRegisterForm()
     context = {
