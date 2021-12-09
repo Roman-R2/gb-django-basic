@@ -7,11 +7,14 @@
     </a>
     <hr>
     {% for item in object_list %}
-        <diw class="row">
+        <div class="row" {% if not item.is_active %}style="opacity: 0.5; background-color: gainsboro"{% endif %}>
             <div class="col-lg-2">
                 <img class="media-object" src="/media/{{ item.avatar }}" height="64">
             </div>
             <div class="col-lg-2">
+                {% if not item.is_active %}
+                    <span class="label label-warning">Удален (не активен)</span>
+                {% endif %}
                 {% if item.is_superuser %}
                     <span class="label label-default">Администратор</span>
                 {% else %}
@@ -19,7 +22,7 @@
                 {% endif %}
             </div>
             <div class="col-lg-3">
-                <p>Имя пользователя: {{ item.username }}</p>
+                <p>Имя пользователя: <b>{{ item.username }}</b></p>
                 <p>Полное имя: {{ item.get_full_name }}</p>
                 <p>Возраст: {{ item.age }}</p>
                 <p>Email: {{ item.email }}</p>
@@ -33,7 +36,7 @@
                     </div>
                 </div>
             </div>
-        </diw>
+        </div>
     {% endfor %}
 
 
