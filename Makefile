@@ -20,6 +20,9 @@ restore-db:
 	rm -fr mainapp/migrations
 	mkdir mainapp/migrations
 	touch mainapp/migrations/__init__.py
+	rm -fr basketapp/migrations
+	mkdir basketapp/migrations
+	touch basketapp/migrations/__init__.py
 	make migrate
 	make superuser
 	make loaddata
