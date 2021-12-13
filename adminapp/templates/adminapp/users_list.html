@@ -7,7 +7,7 @@
     </a>
     <hr>
     {% for item in object_list %}
-        <div class="row" {% if not item.is_active %}style="opacity: 0.5; background-color: gainsboro"{% endif %}>
+        <div class="row" {% if not item.is_active %}style="background-color: gainsboro"{% endif %}>
             <div class="col-lg-2">
                 <img class="media-object" src="/media/{{ item.avatar }}" height="64">
             </div>
@@ -28,13 +28,17 @@
                 <p>Email: {{ item.email }}</p>
             </div>
             <div class="col-lg-5">
-                <div class="bs-example pull-left" data-example-id="vertical-button-group">
-                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                        <a href="{% url 'adminapp:user_update' item.pk %}" style="margin-bottom: 10px;" class="btn
+                {% if item.is_active %}
+                    <div class="bs-example pull-left" data-example-id="vertical-button-group">
+                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                            <a href="{% url 'adminapp:user_update' item.pk %}" style="margin-bottom: 10px;" class="btn
                         btn-info">Редактировать</a>
-                        <a href="{% url 'adminapp:user_delete' item.pk %}" class="btn btn-danger">Удалить</a>
+                            <a href="{% url 'adminapp:user_delete' item.pk %}" class="btn btn-danger">Удалить</a>
+                        </div>
                     </div>
-                </div>
+                {% else %}
+                    <a href="#" class="btn btn-info" style="margin-top: 30px;">Восстановить</a>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
