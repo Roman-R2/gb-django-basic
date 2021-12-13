@@ -11,6 +11,9 @@ venv_ubuntu
 ### Python ###
 __pycache__/
 
+### BD ###
+*.sqlite3
+
 ### Django ###
 *.pyc
 /media
