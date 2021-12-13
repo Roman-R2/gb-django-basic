@@ -9,6 +9,7 @@ class Category(models.Model):
     )
     slug = models.SlugField(max_length=255, verbose_name='Url', unique=True)
     description = models.TextField(verbose_name='Описание')
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -40,6 +41,7 @@ class Product(models.Model):
         default=0,
         verbose_name='Количество'
     )
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.name} ({self.category})'

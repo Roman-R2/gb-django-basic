@@ -32,8 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 INSTALLED_APPS = [
     # My apps
-    'authapp',
-    'basketapp',
+    'adminapp.apps.AdminappConfig',
+    'authapp.apps.AuthappConfig',
+    'basketapp.apps.BasketappConfig',
     'mainapp.apps.MainappConfig',
 
     # Third party apps
