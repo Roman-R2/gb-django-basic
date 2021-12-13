@@ -1,3 +1,6 @@
+venv:
+	. venv_ubuntu/bin/activate
+
 start:
 	python3.10 manage.py runserver
 
