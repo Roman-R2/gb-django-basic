@@ -138,6 +138,7 @@ def products(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def product_create(request, pk):
+    category_item = get_object_or_404(Product, pk)
     if request.method == 'POST':
         product_form = ProductCreateForm(request.POST, request.FILES)
         if product_form.is_valid():

@@ -1,5 +1,8 @@
 {% if hot_product %}
     <div class="details-products">
+        <hr style="margin-bottom: 20px;">
+
+        <h2><i class="fa fa-fire red" aria-hidden="true"></i> Горячее предлложение: </h2>
         <div class="details-slider">
             <div class="slider-product">
                 <img src="/media/{{ hot_product.image }}">
@@ -18,5 +21,7 @@
                 <p>{{ hot_product.short_desc }}</p>
             </div>
         </div>
+
     </div>
+
 {% endif %}
