@@ -1,21 +1,31 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, \
+    DetailView
 
 from adminapp.forms import ShopUserAdminEditForm, ProductCategoryForm, \
     ProductCreateForm
+from adminapp.utils import AdminAccessMixin
 from authapp.forms import ShopUserRegisterForm
 from authapp.models import ShopUser
 from mainapp.models import Product, Category
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def users(request):
-    context = {
-        'object_list': ShopUser.objects.all().order_by('-is_active')
-    }
-    return render(request, 'adminapp/users_list.html', context=context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def users(request):
+#     context = {
+#         'object_list': ShopUser.objects.all().order_by('-is_active')
+#     }
+#     return render(request, 'adminapp/users_list.html', context=context)
+
+class UsersListView(AdminAccessMixin, ListView):
+    model = ShopUser
+    template_name = 'adminapp/users_list.html'
+
+    def get_queryset(self):
+        return ShopUser.objects.order_by('?')
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -76,53 +86,73 @@ def categories(request):
     return render(request, 'adminapp/categories_list.html', context=context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_create(request):
-    if request.method == 'POST':
-        category_form = ProductCategoryForm(request.POST)
-        if category_form.is_valid():
-            category_form.save()
-            return HttpResponseRedirect(reverse('adminapp:categories'))
-    else:
-        category_form = ProductCategoryForm()
-    context = {
-        'form': category_form
-    }
-    return render(request, 'adminapp/category_form.html', context=context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_create(request):
+#     if request.method == 'POST':
+#         category_form = ProductCategoryForm(request.POST)
+#         if category_form.is_valid():
+#             category_form.save()
+#             return HttpResponseRedirect(reverse('adminapp:categories'))
+#     else:
+#         category_form = ProductCategoryForm()
+#     context = {
+#         'form': category_form
+#     }
+#     return render(request, 'adminapp/category_form.html', context=context)
+
+class CategoryCreate(AdminAccessMixin, CreateView):
+    model = Category
+    template_name = 'adminapp/category_form.html'
+    # fields = '__all__'
+    form_class = ProductCategoryForm
+    success_url = reverse_lazy('adminapp:categories')
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_update(request, pk):
-    category_item = get_object_or_404(Category, pk=pk)
-    if request.method == 'POST':
-        category_form = ProductCategoryForm(
-            request.POST,
-            instance=category_item
-        )
-        if category_form.is_valid():
-            category_form.save()
-            return HttpResponseRedirect(reverse('adminapp:categories'))
-    else:
-        category_form = ProductCategoryForm(instance=category_item)
-    context = {
-        'form': category_form
-    }
-    return render(request, 'adminapp/category_form.html', context=context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_update(request, pk):
+#     category_item = get_object_or_404(Category, pk=pk)
+#     if request.method == 'POST':
+#         category_form = ProductCategoryForm(
+#             request.POST,
+#             instance=category_item
+#         )
+#         if category_form.is_valid():
+#             category_form.save()
+#             return HttpResponseRedirect(reverse('adminapp:categories'))
+#     else:
+#         category_form = ProductCategoryForm(instance=category_item)
+#     context = {
+#         'form': category_form
+#     }
+#     return render(request, 'adminapp/category_form.html', context=context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_delete(request, pk):
-    category_item = get_object_or_404(Category, pk=pk)
-    if request.method == 'POST':
-        category_item.is_active = False
-        category_item.save()
-        return HttpResponseRedirect(reverse('adminapp:categories'))
+class CategoryUpdate(AdminAccessMixin, UpdateView):
+    model = Category
+    template_name = 'adminapp/category_form.html'
+    # fields = '__all__'
+    form_class = ProductCategoryForm
+    success_url = reverse_lazy('adminapp:categories')
 
-    context = {
-        'object': category_item,
-    }
 
-    return render(request, 'adminapp/category_delete.html', context=context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_delete(request, pk):
+#     category_item = get_object_or_404(Category, pk=pk)
+#     if request.method == 'POST':
+#         category_item.is_active = False
+#         category_item.save()
+#         return HttpResponseRedirect(reverse('adminapp:categories'))
+#
+#     context = {
+#         'object': category_item,
+#     }
+#
+#     return render(request, 'adminapp/category_delete.html', context=context)
+
+class DeleteCategory(AdminAccessMixin, DeleteView):
+    model = Category
+    template_name = 'adminapp/category_delete.html'
+    success_url = reverse_lazy('adminapp:categories')
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -136,26 +166,50 @@ def products(request, pk):
     return render(request, 'adminapp/products_list.html', context=context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def product_create(request, pk):
-    if request.method == 'POST':
-        product_form = ProductCreateForm(request.POST, request.FILES)
-        if product_form.is_valid():
-            product_form.save()
-            return HttpResponseRedirect(
-                reverse(
-                    'adminapp:products',
-                    kwargs={"pk": pk}
-                )
-            )
-    else:
-        product_form = ProductCreateForm()
+# @user_passes_test(lambda u: u.is_superuser)
+# def product_create(request, pk):
+#     category_item = get_object_or_404(Product, pk)
+#     if request.method == 'POST':
+#         product_form = ProductCreateForm(request.POST, request.FILES)
+#         if product_form.is_valid():
+#             product_form.save()
+#             return HttpResponseRedirect(
+#                 reverse(
+#                     'adminapp:products',
+#                     kwargs={"pk": pk}
+#                 )
+#             )
+#     else:
+#         product_form = ProductCreateForm()
+#
+#     context = {
+#         'category_id': pk,
+#         'form': product_form
+#     }
+#     return render(request, 'adminapp/product_form.html', context=context)
 
-    context = {
-        'category_id': pk,
-        'form': product_form
-    }
-    return render(request, 'adminapp/product_form.html', context=context)
+class ProductCreate(AdminAccessMixin, CreateView):
+    model = Product
+    template_name = 'adminapp/product_form.html'
+    form_class = ProductCreateForm
+
+    def _get_category(self):
+        category_id = self.kwargs.get('pk')
+        return get_object_or_404(
+            Category,
+            pk=category_id
+        )
+
+    def get_success_url(self):
+        return reverse(
+            'adminapp:products',
+            kwargs={"pk": self._get_category().pk}
+        )
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['category_id'] = self._get_category().pk
+        return context_data
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -192,10 +246,14 @@ def product_delete(request, pk):
     return render(request, 'adminapp/product_delete.html', context=context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def product_read(request, pk):
-    context = {
-        'object': get_object_or_404(Product, pk=pk),
-    }
+# @user_passes_test(lambda u: u.is_superuser)
+# def product_read(request, pk):
+#     context = {
+#         'object': get_object_or_404(Product, pk=pk),
+#     }
+#
+#     return render(request, 'adminapp/product_detail.html', context=context)
 
-    return render(request, 'adminapp/product_detail.html', context=context)
+class ProductDetail(AdminAccessMixin, DetailView):
+    model = Product
+    template_name = 'adminapp/product_detail.html'

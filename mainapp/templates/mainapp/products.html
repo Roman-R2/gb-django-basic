@@ -14,7 +14,8 @@
         </div>
         {% include 'mainapp/inc/_hot_product.html' %}
 
-        <div class="related-products clearfix">
+        <div class="related-products clearfix" style="margin: 12px;">
+            <h2>Товары категории: </h2>
             {% if products_list %}
                 {% for item in products_list %}
                     <div class="block">
@@ -34,13 +35,14 @@
 
 
         </div>
+            {% include 'mainapp/inc/_pagination.html' %}
+
     </div>
 
     <div class="related">
-        <div class="title clearfix">
-            <h2>Похожие продукты</h2>
-            <a class="explore" href="#">показать все
-                <img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
+        <div class="">
+            <h1>Похожие продукты</h1>
+
         </div>
         <div class="related-products clearfix">
             {% for product in same_products %}

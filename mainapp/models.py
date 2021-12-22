@@ -19,6 +19,10 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
         db_table = 'category'
 
+    def delete(self, *args, **kwargs):
+        self.is_active = False
+        self.save()
+
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
